@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Peer Browser View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="PeerBrowserViewController" customModule="oShare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -19,6 +22,75 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Chat Setup View Controller-->
+        <scene sceneID="uYE-Xl-fo7">
+            <objects>
+                <viewController storyboardIdentifier="setupViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="feJ-YO-FFf" customClass="ChatSetupViewController" customModule="oShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uPr-jz-wBm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXo-Ww-8Nu">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="mG5-6X-dag"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Set a Display Name" id="OmQ-vL-flT">
+                                        <barButtonItem key="rightBarButtonItem" title="Save" style="plain" id="1w9-ZM-hRZ">
+                                            <connections>
+                                                <action selector="saveDisplayNameWithSender:" destination="feJ-YO-FFf" id="VGA-4A-Vfk"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2gU-0f-q0L" customClass="CharacterCounterTextField" customModule="oShare" customModuleProvider="target">
+                                <rect key="frame" x="20" y="176" width="335" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="jCG-3M-kzM"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="characterLimit">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psc-uX-QMo">
+                                <rect key="frame" x="20" y="84" width="335" height="72"/>
+                                <string key="text">Please choose a Display Name. This name cannot be empty, nor can it be greater than 20 characters in length. This name will be used to identify you to devices in the vicinity.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NaD-GH-ihZ" firstAttribute="trailing" secondItem="Psc-uX-QMo" secondAttribute="trailing" constant="20" id="11C-JA-NHX"/>
+                            <constraint firstItem="2gU-0f-q0L" firstAttribute="top" secondItem="Psc-uX-QMo" secondAttribute="bottom" constant="20" id="3AH-Xl-fbN"/>
+                            <constraint firstItem="Psc-uX-QMo" firstAttribute="top" secondItem="XXo-Ww-8Nu" secondAttribute="bottom" constant="20" id="49U-4J-PhX"/>
+                            <constraint firstItem="XXo-Ww-8Nu" firstAttribute="top" secondItem="NaD-GH-ihZ" secondAttribute="top" id="722-tg-usx"/>
+                            <constraint firstItem="NaD-GH-ihZ" firstAttribute="bottom" secondItem="2gU-0f-q0L" secondAttribute="bottom" priority="250" constant="20" id="C2N-Wx-Zma"/>
+                            <constraint firstItem="NaD-GH-ihZ" firstAttribute="trailing" secondItem="2gU-0f-q0L" secondAttribute="trailing" constant="20" id="J4v-dW-zCE"/>
+                            <constraint firstItem="XXo-Ww-8Nu" firstAttribute="leading" secondItem="NaD-GH-ihZ" secondAttribute="leading" id="TZy-hw-pv2"/>
+                            <constraint firstItem="XXo-Ww-8Nu" firstAttribute="trailing" secondItem="NaD-GH-ihZ" secondAttribute="trailing" id="UfW-oi-tnc"/>
+                            <constraint firstItem="2gU-0f-q0L" firstAttribute="leading" secondItem="NaD-GH-ihZ" secondAttribute="leading" constant="20" id="cLD-nU-jqv"/>
+                            <constraint firstItem="Psc-uX-QMo" firstAttribute="leading" secondItem="NaD-GH-ihZ" secondAttribute="leading" constant="20" id="eKx-4m-MeE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NaD-GH-ihZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="continueButton" destination="1w9-ZM-hRZ" id="yJJ-we-swa"/>
+                        <outlet property="displayNameTextField" destination="2gU-0f-q0L" id="QUc-tN-7zp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F4b-BC-acw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1348" y="34"/>
         </scene>
     </scenes>
 </document>

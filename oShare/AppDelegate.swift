@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  oShare
-//
-//  Created by Ben Deckys on 24/12/17.
-//  Copyright © 2017 MIMIMI. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
