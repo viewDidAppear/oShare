@@ -120,6 +120,8 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 extension MultipeerConnectivityManager: MCNearbyServiceBrowserDelegate {
 
 	func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
+		guard peerID != localPeer else { return }
+
 		foundPeers.append(peerID)
 		delegate?.foundPeer(peerID)
 	}
