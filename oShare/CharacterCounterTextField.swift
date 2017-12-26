@@ -6,6 +6,8 @@ import UIKit
 	@IBInspectable var characterLimit: Int = 20
 	
 	private let characterCountLabel = UILabel()
+	private let characterCountLabelSize: CGSize = CGSize(width: 30, height: 30)
+	private let characterCountLabelXOffset: CGFloat = 35
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -36,8 +38,10 @@ import UIKit
 	
 	override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
 		if characterLimit > 0 {
-			return CGRect(x: frame.width-35, y: 0, width: 30, height:
-				30)
+			return CGRect(
+				origin: CGPoint(x: frame.width-characterCountLabelXOffset, y: 0),
+				size: characterCountLabelSize
+			)
 		} else {
 			return CGRect()
 		}
