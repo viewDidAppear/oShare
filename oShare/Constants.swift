@@ -4,6 +4,7 @@ struct Constants {
 	
 	static let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 	static let mainWindow: UIWindow? = UIApplication.shared.keyWindow
+	static let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
 	
 	struct Strings {
 		static let serviceType: String = "oshare-chat"
