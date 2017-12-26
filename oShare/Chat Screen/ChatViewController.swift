@@ -5,8 +5,12 @@ class ChatViewController: UIViewController {
 	
 	// This constraint will be used to adjust the UI in response to the keyboard being displayed/hidden.
 	@IBOutlet private var bottomConstraint: NSLayoutConstraint!
+	@IBOutlet private var textField: UITextField!
+	@IBOutlet private var tableView: UITableView!
 	
 	private var appDelegate: AppDelegate!
+	private var messages: [Dictionary<String, String>] = []
+	private let chatTableViewHandler = ChatTableViewHandler()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -14,6 +18,8 @@ class ChatViewController: UIViewController {
 		guard let appDelegate = Constants.appDelegate else { return }
 		self.appDelegate = appDelegate
 		
+		configureTableView()
+		configureTextField()
 		configureEndChatButton()
 		registerKeyboardNotifications()
 	}
@@ -21,6 +27,18 @@ class ChatViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		navigationItem.hidesBackButton = true
+	}
+	
+	private func configureTableView() {
+		chatTableViewHandler.appDelegate = appDelegate
+		chatTableViewHandler.tableView = tableView
+		tableView.delegate = chatTableViewHandler
+		tableView.dataSource = chatTableViewHandler
+	}
+	
+	private func configureTextField() {
+		textField.delegate = self
+		textField.becomeFirstResponder()
 	}
 	
 	private func registerKeyboardNotifications() {
@@ -73,4 +91,35 @@ class ChatViewController: UIViewController {
 		}
 	}
 	
+	@IBAction private func sendMessage(sender: UIButton?) {
+		// Only proceed sending data if the text is not empty.
+		guard
+			let text = textField.text,
+			let peer = appDelegate.connectivityManager.session.connectedPeers.first,
+			text.isEmpty == false
+			else { return } // Why is the default indentation like this?
+		
+		let messageData: [String: String] = ["sender": "self", "message": text]
+		
+		if appDelegate.connectivityManager.send(dictionaryWithData: messageData, toPeer: peer) {
+			messages.append(messageData)
+			chatTableViewHandler.reloadData(messages: messages)
+		} else {
+			// TODO: - Handle Failure
+		}
+		
+		textField.text = ""
+	}
+	
+}
+
+extension ChatViewController: UITextFieldDelegate {
+
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		textField.resignFirstResponder()
+		sendMessage(sender: nil)
+		
+		return true
+	}
+
 }
