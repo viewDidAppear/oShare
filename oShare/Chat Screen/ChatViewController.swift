@@ -30,6 +30,9 @@ class ChatViewController: UIViewController {
 		
 		if appDelegate.connectivityManager.send(dictionaryWithData: messageDictionary, toPeer: appDelegate.connectivityManager.session.connectedPeers[0]) {
 			appDelegate.connectivityManager.session.disconnect()
+			appDelegate.connectivityManager.startAdvertising()
+			appDelegate.connectivityManager.startBrowsingForDevices()
+			
 			navigationController?.popViewController(animated: true)
 		}
 	}
