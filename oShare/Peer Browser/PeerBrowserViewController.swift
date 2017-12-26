@@ -68,11 +68,6 @@ class PeerBrowserViewController: UIViewController {
 		present(setupViewController, animated: true, completion: nil)
 	}
 	
-	private func browseForNearbyDevices() {
-		appDelegate.configureConnectivityManager()
-		appDelegate.connectivityManager.delegate = self
-	}
-	
 }
 
 // MARK: - UIViewControllerTransitioningDelegate
@@ -103,7 +98,8 @@ extension PeerBrowserViewController: ChatSetupViewControllerDelegate {
 			self?.view.alpha = 1.0
 		})
 		
-		browseForNearbyDevices()
+		appDelegate.configureConnectivityManager()
+		appDelegate.connectivityManager.delegate = self
 	}
 }
 
