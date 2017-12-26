@@ -5,7 +5,6 @@ class SheetAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 	
 	var isPresenting = true
 	
-	private var homeInset = Constants.Numbers.homeIndicatorInset
 	private var popoverHeight: CGFloat = 0
 	private var originFrame = CGRect(
 		x: 0,
@@ -20,13 +19,14 @@ class SheetAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 	
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 		let containerView = transitionContext.containerView
+		let bottomInset = Constants.appDelegate?.window?.safeAreaInsets.bottom ?? 0
 		
 		// We want to ensure we actually have a destination.
 		guard let sheetView = isPresenting ? transitionContext.view(forKey: .to) : transitionContext.view(forKey: .from) else { return }
 		
 		popoverHeight = sheetView.systemLayoutSizeFitting(CGSize(width: UIScreen.main.bounds.size.width, height: 100), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow).height
 		
-		sheetView.frame.size.height = popoverHeight
+		sheetView.frame.size.height = popoverHeight+bottomInset
 		
 		if isPresenting {
 			sheetView.frame.origin.y = originFrame.origin.y
@@ -38,7 +38,7 @@ class SheetAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 			guard let strongSelf = self else { return }
 			
 			if strongSelf.isPresenting {
-				sheetView.frame.origin.y = UIScreen.main.bounds.size.height-strongSelf.popoverHeight-strongSelf.homeInset
+				sheetView.frame.origin.y = UIScreen.main.bounds.size.height-(strongSelf.popoverHeight+bottomInset)
 			} else {
 				sheetView.frame.origin.y = strongSelf.originFrame.origin.y
 			}
