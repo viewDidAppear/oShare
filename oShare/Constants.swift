@@ -13,6 +13,7 @@ struct Constants {
 		static let maximumDisplayNameLength: Int = 20
 		static let displayNamePopoverTransitionDuration: Double = 0.5
 		static let displayNamePopoverHeight: CGFloat = 300
+		static let standardTableViewRowHeight: CGFloat = 60
 		
 		// MARK: - Safe Area Insets
 		// These properties will be 0 on non-iPhone X devices, and devices not running iOS 11.
