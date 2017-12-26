@@ -11,13 +11,28 @@ class PeerBrowserViewController: UIViewController {
 	private let peerTableViewHandler = PeerBrowserTableViewHandler()
 	private var isAdvertising = true
 	
+	// MARK: - View Lifecycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		navigationItem.title = "oShare"
 		
+		addDynamicTextObservers()
 		checkDisplayName()
 		configureHandler()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		NotificationCenter.default.removeObserver(self)
+	}
+	
+	// MARK: - Configuration
+	
+	private func addDynamicTextObservers() {
+		NotificationCenter.default.addObserver(self, selector: #selector(self.handleDynamicTextChanges(notification:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 	}
 	
 	private func configureHandler() {
@@ -25,6 +40,16 @@ class PeerBrowserViewController: UIViewController {
 		peerTableView.delegate = peerTableViewHandler
 		peerTableView.dataSource = peerTableViewHandler
 	}
+	
+	// MARK: - Dynamic Text Handler
+	// This function must be exposed to the Objective-C Runtime.
+
+	@objc private func handleDynamicTextChanges(notification: Notification) {
+		// To handle changes in dynamic text size, reload the tableView contents.
+		peerTableViewHandler.reloadData(foundPeers: connectivityManager.foundPeers)
+	}
+	
+	// MARK: - Browsing
 	
 	private func checkDisplayName() {
 		guard let setupViewController = Constants.mainStoryboard.instantiateViewController(withIdentifier: "setupViewController") as? ChatSetupViewController else { return }
