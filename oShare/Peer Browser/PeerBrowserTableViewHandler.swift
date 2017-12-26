@@ -11,7 +11,8 @@ class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDat
 	private var foundPeers: [MCPeerID] = []
 	
 	// Some example status messages. Theoretically, a user could set this in their app preferences, to advertise their current status to their team. I shamelessly ripped this idea from WhatsApp, Slack and Skype.
-	private let exampleStatusMessages: [String] = ["Hi there, I am using oShare.", "こんにちは、オシャレを使う。", "Probably drinking coffee...", "AFK", "Brb, lunch...", "Debugging a SIGABRT. BBIAB."]
+	// Because these messages are accessed randomly, an extremely large font size in Settings can result in the messages changing upon scroll. A full-fledged implementation would not have this issue.
+	private let exampleStatusMessages: [String] = ["Hi there, I am using oShare.", "こんにちは、オシャレを使う。", "Probably drinking coffee...", "AFK", "Brb, lunch...", "Debugging a SIGABRT. BBIAB.", "I really, really, really, really, really, really, really, REALLY like long status messages. Like, really, really, really, really, really long status messages. It's such a good test of a UI's ability to handle long text in unexpected places."]
 
 	// MARK: - Reloading
 	
@@ -21,6 +22,13 @@ class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDat
 	func reloadData(foundPeers: [MCPeerID]) {
 		self.foundPeers = foundPeers
 
+		// I dislike the extraneous separator lines beneath the actual, populated data. This hides them.
+		tableView?.tableFooterView = UIView()
+		
+		// Set a height of 60pt as the default base value to estimate from.
+		tableView?.estimatedRowHeight = Constants.Numbers.standardTableViewRowHeight
+		
+		// Disable interaction while we reload data, and re-enable it after we're done.
 		tableView?.isUserInteractionEnabled = false
 		tableView?.performBatchUpdates({ [weak self] in
 			self?.tableView?.reloadSections(IndexSet([0]), with: .automatic)
@@ -32,7 +40,7 @@ class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDat
 	// MARK: - UITableViewDelegate and DataSource Methods
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-		return Constants.Numbers.standardTableViewRowHeight
+		return UITableViewAutomaticDimension
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -44,8 +52,10 @@ class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDat
 		let cell = tableView.dequeueReusableCell(withIdentifier: "PeerCell", for: indexPath)
 		let randomIndex = Int(arc4random_uniform(UInt32(exampleStatusMessages.count)))
 		
+		cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
 		cell.textLabel?.text = foundPeers[indexPath.row].displayName
 		cell.detailTextLabel?.text = exampleStatusMessages[randomIndex]
+		cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
 		
 		return cell
 	}
