@@ -84,7 +84,7 @@ class MultipeerConnectivityManager: NSObject {
 }
 
 extension MultipeerConnectivityManager: MCSessionDelegate {
-
+	
 	func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
 		delegate?.failedToBrowseForPeers(withError: error)
 	}
@@ -100,11 +100,7 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 		case .connecting:
 			// TODO: - Display Indicator?
 			break
-		default:
-			startAdvertising()
-			startBrowsingForDevices()
-
-			delegate?.failedToConnect(withPeer: peerID)
+		default: break
 		}
 	}
 	
@@ -134,7 +130,7 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 extension MultipeerConnectivityManager: MCNearbyServiceBrowserDelegate {
 
 	func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
-		guard peerID != localPeer else { return }
+		guard peerID != localPeer, foundPeers.contains(peerID) == false else { return }
 
 		foundPeers.append(peerID)
 		delegate?.foundPeer(peerID)
