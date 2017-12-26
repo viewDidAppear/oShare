@@ -1,38 +1,48 @@
 import UIKit
+import MultipeerConnectivity
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-
+	var connectivityManager: MultipeerConnectivityManager!
+	
+	// This functionality was moved in here to ensure that we tear down and rebuild the connectivity manager as appropriate. The user will vanish if they close the app, and reappear to others when they reopen it.
+	
+	func configureConnectivityManager() {
+		// Retrieve the display name from UserDefaults, and use that to create our MCPeerID.
+		guard let displayName = UserDefaults.standard.value(forKey: "displayName") as? String, displayName.count > 0 && displayName.count <= 20 else {
+			
+			// If for any reason, the user has somehow set an empty string or a too-long name as their display name, they will be unable to connect to any peers. Handle this error.
+			return
+		}
+		
+		connectivityManager = MultipeerConnectivityManager(peer: MCPeerID(displayName: displayName))
+		connectivityManager.startBrowsingForDevices()
+		connectivityManager.startAdvertising()
+	}
+	
+	func tearDownConnectivityManager() {
+		connectivityManager.stopAdvertising()
+		connectivityManager.stopBrowsingForDevices()
+		connectivityManager.foundPeers = []
+	}
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-		// Override point for customization after application launch.
+
+		// When the app launches, and only when that happens, allow a new displayName to be set by setting this Boolean to true.
+		// Ideally this would be configurable from within the app, inside another flow. However in the interest of keeping things simple, it happens on a `newLaunch` only.
+		UserDefaults.standard.set(true, forKey: "newLaunch")
+
 		return true
 	}
 
-	func applicationWillResignActive(_ application: UIApplication) {
-		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-		// Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-	}
-
 	func applicationDidEnterBackground(_ application: UIApplication) {
-		// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-		// If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-	}
-
-	func applicationWillEnterForeground(_ application: UIApplication) {
-		// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+		tearDownConnectivityManager()
 	}
 
 	func applicationDidBecomeActive(_ application: UIApplication) {
-		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+		configureConnectivityManager()
 	}
-
-	func applicationWillTerminate(_ application: UIApplication) {
-		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-	}
-
 
 }
-
