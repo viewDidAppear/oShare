@@ -1,35 +1,25 @@
-//
-//  ChatViewController.swift
-//  oShare
-//
-//  Created by Ben Deckys on 26/12/17.
-//  Copyright © 2017 MIMIMI. All rights reserved.
-//
-
 import UIKit
+import MultipeerConnectivity
 
 class ChatViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+	
+	private var appDelegate: AppDelegate!
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		guard let appDelegate = Constants.appDelegate else { return }
+		self.appDelegate = appDelegate
+	}
+	
+	@IBAction private func endChat(sender: UIBarButtonItem) {
+		// For the sake of simplicity, we are only going to support peer-to-peer chat, as opposed to multiple peers in a single chat. This is why I directly access [0] in the list of connected peers.
+		let messageDictionary: [String: String] = ["message": "_end_chat_"]
+		
+		if appDelegate.connectivityManager.send(dictionaryWithData: messageDictionary, toPeer: appDelegate.connectivityManager.session.connectedPeers[0]) {
+			appDelegate.connectivityManager.session.disconnect()
+			navigationController?.popViewController(animated: true)
+		}
+	}
+	
 }

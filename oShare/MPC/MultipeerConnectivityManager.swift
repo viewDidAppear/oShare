@@ -8,9 +8,10 @@ class MultipeerConnectivityManager: NSObject {
 	var foundPeers: [MCPeerID] = []
 	var invitationHandler: ((Bool, MCSession) -> Void)?
 
-	private var session: MCSession
 	private var connectivityBrowser: MCNearbyServiceBrowser
 	private var connectivityAdvertiser: MCNearbyServiceAdvertiser
+	
+	private(set) var session: MCSession
 	
 	init(peer: MCPeerID) {
 		self.localPeer = peer
@@ -65,6 +66,19 @@ class MultipeerConnectivityManager: NSObject {
 	
 	func respondToInvitation(accepted: Bool) {
 		invitationHandler?(accepted, session)
+	}
+	
+	func send(dictionaryWithData dictionary: [String: String], toPeer targetPeer: MCPeerID) -> Bool {
+		let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dictionary)
+		
+		do {
+			try session.send(dataToSend, toPeers: [targetPeer], with: .reliable)
+		} catch {
+			// TODO: - Handle Data Transmission Failure
+			return false
+		}
+		
+		return true
 	}
 	
 }
