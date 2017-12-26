@@ -17,20 +17,26 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 	///
 	/// - Parameter foundPeers: the new list of peers to populate the table.
 	func reloadData(messages: [Dictionary<String, String>]) {
+		guard let tableView = tableView else { return }
 		self.messages = messages
-		// I dislike the extraneous separator lines beneath the actual, populated data. This hides them.
-		tableView?.tableFooterView = UIView()
+
+		tableView.tableFooterView = UIView()
 		
 		// Set a height of 60pt as the default base value to estimate from.
-		tableView?.estimatedRowHeight = Constants.Numbers.standardTableViewRowHeight
+		tableView.estimatedRowHeight = Constants.Numbers.standardTableViewRowHeight
 		
 		// Disable interaction while we reload data, and re-enable it after we're done.
-		tableView?.isUserInteractionEnabled = false
-		tableView?.performBatchUpdates({ [weak self] in
-			self?.tableView?.reloadSections(IndexSet([0]), with: .automatic)
-			}, completion: { [weak self] finished in
-				self?.tableView?.isUserInteractionEnabled = true
+		tableView.isUserInteractionEnabled = false
+		tableView.performBatchUpdates({
+			tableView.reloadSections(IndexSet([0]), with: .automatic)
+		}, completion: { _ in
+			tableView.isUserInteractionEnabled = true
 		})
+		
+		// Ensure the "last" (most recent) message is always visible.
+		if tableView.contentSize.height > tableView.frame.size.height {
+			tableView.scrollToRow(at: IndexPath(row: messages.count - 1, section: 0), at: .bottom, animated: true)
+		}
 	}
 	
 	// MARK: - UITableViewDelegate and DataSource Methods
@@ -48,12 +54,12 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 		let message = messages[indexPath.row]["message"]
 		let sender = messages[indexPath.row]["sender"]
 		
+		cell.textLabel?.textAlignment = sender == "self" ? .right : .left
+		cell.detailTextLabel?.textAlignment = sender == "self" ? .right : .left
 		cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
 		cell.textLabel?.text = message
 		cell.detailTextLabel?.text = sender
 		cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
-		cell.textLabel?.textAlignment = sender == "self" ? .right : .left
-		cell.detailTextLabel?.textAlignment = sender == "self" ? .right : .left
 		
 		return cell
 	}
