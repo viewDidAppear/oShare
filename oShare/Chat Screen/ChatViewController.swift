@@ -10,6 +10,18 @@ class ChatViewController: UIViewController {
 		
 		guard let appDelegate = Constants.appDelegate else { return }
 		self.appDelegate = appDelegate
+		
+		configureEndChatButton()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationItem.hidesBackButton = true
+	}
+	
+	private func configureEndChatButton() {
+		let endChatButton = UIBarButtonItem(title: "End", style: .done, target: self, action: #selector(self.endChat(sender:)))
+		navigationItem.rightBarButtonItem = endChatButton
 	}
 	
 	@IBAction private func endChat(sender: UIBarButtonItem) {
