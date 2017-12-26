@@ -26,6 +26,11 @@ protocol MultipeerConnectivityManagerDelegate: class {
 	/// - Parameter peer: the peer who we successfully connected with.
 	func connected(withPeer peer: MCPeerID)
 	
+	/// This function will be triggered whenever we unsuccessfully attempt to connect with a peer.
+	///
+	/// - Parameter peer: the peer who we did not connect with.
+	func failedToConnect(withPeer peer: MCPeerID)
+	
 	/// This function will be triggred whenever we unsuccessfully attempt to browse for peers.
 	func failedToBrowseForPeers(withError error: Error)
 	

@@ -126,21 +126,35 @@ extension PeerBrowserViewController: MultipeerConnectivityManagerDelegate {
 	func receivedInvitation(fromPeer peer: MCPeerID, context: Data?) {
 		let alert = UIAlertController(title: "👋", message: "\(peer.displayName) would like to chat with you!", preferredStyle: UIAlertControllerStyle.alert)
 		let accept: UIAlertAction = UIAlertAction(
-				title: "👍",
+				title: "Sure!",
 				style: UIAlertActionStyle.default
 		) { [weak self] _ -> Void in
 			self?.appDelegate.connectivityManager.respondToInvitation(accepted: true)
 		}
 		
 		let decline = UIAlertAction(
-				title: "👎",
-				style: UIAlertActionStyle.cancel
+				title: "Ignore",
+				style: UIAlertActionStyle.destructive
 		) { [weak self] _ -> Void in
 			self?.appDelegate.connectivityManager.respondToInvitation(accepted: false)
 		}
 		
 		alert.addAction(accept)
 		alert.addAction(decline)
+		
+		OperationQueue.main.addOperation { [weak self] in
+			self?.present(alert, animated: true, completion: nil)
+		}
+	}
+	
+	func failedToConnect(withPeer peer: MCPeerID) {
+		let alert = UIAlertController(title: "😞", message: "Failed to initiate chat session.", preferredStyle: UIAlertControllerStyle.alert)
+		let accept: UIAlertAction = UIAlertAction(
+			title: "OK",
+			style: UIAlertActionStyle.default
+		)
+		
+		alert.addAction(accept)
 		
 		OperationQueue.main.addOperation { [weak self] in
 			self?.present(alert, animated: true, completion: nil)

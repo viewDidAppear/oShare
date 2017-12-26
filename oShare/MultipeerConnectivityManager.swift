@@ -4,7 +4,7 @@ class MultipeerConnectivityManager: NSObject {
 	
 	weak var delegate: MultipeerConnectivityManagerDelegate?
 
-	var peer: MCPeerID
+	var localPeer: MCPeerID
 	var foundPeers: [MCPeerID] = []
 	var invitationHandler: ((Bool, MCSession) -> Void)?
 
@@ -13,8 +13,8 @@ class MultipeerConnectivityManager: NSObject {
 	private var connectivityAdvertiser: MCNearbyServiceAdvertiser
 	
 	init(peer: MCPeerID) {
-		self.peer = peer
-		self.session = MCSession(peer: peer)
+		self.localPeer = peer
+		self.session = MCSession(peer: peer, securityIdentity: nil, encryptionPreference: .optional)
 		
 		self.connectivityBrowser = MCNearbyServiceBrowser(
 			peer: peer,
@@ -76,7 +76,22 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 	}
 	
 	func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-		// TODO: - Handle in next commits
+		switch state {
+		case .connected:
+			// A quirk in MultipeerConnectivity I discovered, is that once you're connected, and for some reason the peerID changes, you can very easily wind up with a failed connection. Ceasing advertising and browsing upon connection resolves this.
+			stopAdvertising()
+			stopBrowsingForDevices()
+
+			delegate?.connected(withPeer: peerID)
+		case .connecting:
+			// TODO: - Display Indicator?
+			break
+		default:
+			startAdvertising()
+			startBrowsingForDevices()
+
+			delegate?.failedToConnect(withPeer: peerID)
+		}
 	}
 	
 	func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
@@ -96,7 +111,8 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 	}
 
 	func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
-		// TODO: - Handle in next commits
+		// For the sake of simplicity, I am responding `true` for all cases here.
+		certificateHandler(true)
 	}
 
 }
