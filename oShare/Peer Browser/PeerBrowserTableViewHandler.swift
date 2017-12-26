@@ -4,8 +4,9 @@ import MultipeerConnectivity
 
 class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource {
 	
-	// Pass weak instance of parent table view across. We do not own this reference, so it must be both `weak` and Optional.
+	// Pass weak instance of parent table view, and app delegate across. We do not own these references, so they must be both `weak` and Optional.
 	weak var tableView: UITableView?
+	weak var appDelegate: AppDelegate?
 	
 	// Keep track of the number of peers. Since this is strictly for data display, we don't want to access it outside of this handler.
 	private var foundPeers: [MCPeerID] = []
@@ -45,7 +46,13 @@ class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDat
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		// TODO: - Invite Peer
+		
+		guard let selectedPeer = appDelegate?.connectivityManager.foundPeers[indexPath.row] else {
+			// TODO: - Handle error should this fail.
+			return
+		}
+		
+		appDelegate?.connectivityManager.invitePeerToChat(peer: selectedPeer)
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -40,6 +40,8 @@ class PeerBrowserViewController: UIViewController {
 	
 	private func configureHandler() {
 		peerTableViewHandler.tableView = peerTableView
+		peerTableViewHandler.appDelegate = appDelegate
+
 		peerTableView.delegate = peerTableViewHandler
 		peerTableView.dataSource = peerTableViewHandler
 	}
@@ -122,7 +124,27 @@ extension PeerBrowserViewController: MultipeerConnectivityManagerDelegate {
 	}
 
 	func receivedInvitation(fromPeer peer: MCPeerID, context: Data?) {
-		// TODO: - Show Message
+		let alert = UIAlertController(title: "👋", message: "\(peer.displayName) would like to chat with you!", preferredStyle: UIAlertControllerStyle.alert)
+		let accept: UIAlertAction = UIAlertAction(
+				title: "👍",
+				style: UIAlertActionStyle.default
+		) { [weak self] _ -> Void in
+			self?.appDelegate.connectivityManager.respondToInvitation(accepted: true)
+		}
+		
+		let decline = UIAlertAction(
+				title: "👎",
+				style: UIAlertActionStyle.cancel
+		) { [weak self] _ -> Void in
+			self?.appDelegate.connectivityManager.respondToInvitation(accepted: false)
+		}
+		
+		alert.addAction(accept)
+		alert.addAction(decline)
+		
+		OperationQueue.main.addOperation { [weak self] in
+			self?.present(alert, animated: true, completion: nil)
+		}
 	}
 	
 	func connected(withPeer peer: MCPeerID) {

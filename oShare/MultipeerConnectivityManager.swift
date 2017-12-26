@@ -54,6 +54,19 @@ class MultipeerConnectivityManager: NSObject {
 		delegate?.stoppedAdvertising()
 	}
 	
+	func invitePeerToChat(peer: MCPeerID) {
+		connectivityBrowser.invitePeer(
+			peer,
+			to: session,
+			withContext: nil,
+			timeout: Constants.Numbers.standardInvitationTimeout
+		)
+	}
+	
+	func respondToInvitation(accepted: Bool) {
+		invitationHandler?(accepted, session)
+	}
+	
 }
 
 extension MultipeerConnectivityManager: MCSessionDelegate {
@@ -105,6 +118,9 @@ extension MultipeerConnectivityManager: MCNearbyServiceBrowserDelegate {
 extension MultipeerConnectivityManager: MCNearbyServiceAdvertiserDelegate {
 
 	func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+		// We're going to ask the user if they'd like to chat with us. So, we'll store this temporarily.
+		self.invitationHandler = invitationHandler
+
 		delegate?.receivedInvitation(fromPeer: peerID, context: context)
 	}
 
