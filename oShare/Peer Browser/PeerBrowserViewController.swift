@@ -42,7 +42,7 @@ class PeerBrowserViewController: UIViewController {
 		// Retrieve the display name from UserDefaults, and use that to create our MCPeerID.
 		guard let displayName = UserDefaults.standard.value(forKey: "displayName") as? String, displayName.count > 0 && displayName.count <= 20 else {
 			
-			// If for any reason, the user has somehow set an empty string or a too-long name as their display name, they will be unable to connect to any peers.
+			// If for any reason, the user has somehow set an empty string or a too-long name as their display name, they will be unable to connect to any peers. Handle this error.
 			return
 		}
 		
@@ -52,6 +52,8 @@ class PeerBrowserViewController: UIViewController {
 	}
 	
 }
+
+// MARK: - UIViewControllerTransitioningDelegate
 
 extension PeerBrowserViewController: UIViewControllerTransitioningDelegate {
 	func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -65,7 +67,11 @@ extension PeerBrowserViewController: UIViewControllerTransitioningDelegate {
 	}
 }
 
+// MARK: - ChatSetupViewControllerDelegate
+
 extension PeerBrowserViewController: ChatSetupViewControllerDelegate {
+	
+	/// This function gets called whenever the chat setup (display name input) view controller is dismissed. When and only when this occurs, we begin advertising ourselves to nearby devices, as well as browsing for other advertising instances.
 	func dismissed() {
 		UIView.animate(withDuration: 0.5, animations: { [weak self] in
 			self?.view.alpha = 1.0
