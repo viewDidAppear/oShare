@@ -76,7 +76,19 @@
                     <view key="view" contentMode="scaleToFill" id="xH7-iX-XWv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IUP-pC-DMz">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IUP-pC-DMz" firstAttribute="top" secondItem="EnR-d4-2zA" secondAttribute="top" id="0Se-f6-DCH"/>
+                            <constraint firstItem="EnR-d4-2zA" firstAttribute="trailing" secondItem="IUP-pC-DMz" secondAttribute="trailing" id="9KU-UO-o8c"/>
+                            <constraint firstItem="IUP-pC-DMz" firstAttribute="leading" secondItem="EnR-d4-2zA" secondAttribute="leading" id="jUJ-0f-MNH"/>
+                            <constraint firstItem="EnR-d4-2zA" firstAttribute="bottom" secondItem="IUP-pC-DMz" secondAttribute="bottom" id="q8T-B9-6Qe"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="EnR-d4-2zA"/>
                     </view>
                 </viewController>
