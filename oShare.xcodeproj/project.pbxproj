@@ -97,19 +97,15 @@
 		063D1E321FEF33FF001A6DC4 /* oShare */ = {
 			isa = PBXGroup;
 			children = (
+				063D1E5A1FEF3CCC001A6DC4 /* Constants.swift */,
 				063D1E331FEF33FF001A6DC4 /* AppDelegate.swift */,
-				063D1E641FF11ED7001A6DC4 /* CharacterCounterTextField.swift */,
-				063D1E351FEF33FF001A6DC4 /* ChatSetupViewController.swift */,
+				063D1E6A1FF22453001A6DC4 /* MPC */,
+				063D1E691FF2243C001A6DC4 /* Chat Setup */,
 				063D1E661FF1E90A001A6DC4 /* Peer Browser */,
 				063D1E371FEF33FF001A6DC4 /* Main.storyboard */,
 				063D1E3A1FEF33FF001A6DC4 /* Assets.xcassets */,
 				063D1E3C1FEF33FF001A6DC4 /* LaunchScreen.storyboard */,
 				063D1E3F1FEF33FF001A6DC4 /* Info.plist */,
-				063D1E561FEF34A9001A6DC4 /* MultipeerConnectivityManager.swift */,
-				063D1E5C1FEF3E0D001A6DC4 /* MultipeerConnectivityManagerDelegate.swift */,
-				063D1E581FEF3C43001A6DC4 /* MultipeerConnectivityError.swift */,
-				063D1E5A1FEF3CCC001A6DC4 /* Constants.swift */,
-				063D1E621FF10F24001A6DC4 /* SheetAnimator.swift */,
 			);
 			path = oShare;
 			sourceTree = "<group>";
@@ -138,6 +134,26 @@
 				063D1E671FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift */,
 			);
 			path = "Peer Browser";
+			sourceTree = "<group>";
+		};
+		063D1E691FF2243C001A6DC4 /* Chat Setup */ = {
+			isa = PBXGroup;
+			children = (
+				063D1E621FF10F24001A6DC4 /* SheetAnimator.swift */,
+				063D1E641FF11ED7001A6DC4 /* CharacterCounterTextField.swift */,
+				063D1E351FEF33FF001A6DC4 /* ChatSetupViewController.swift */,
+			);
+			path = "Chat Setup";
+			sourceTree = "<group>";
+		};
+		063D1E6A1FF22453001A6DC4 /* MPC */ = {
+			isa = PBXGroup;
+			children = (
+				063D1E561FEF34A9001A6DC4 /* MultipeerConnectivityManager.swift */,
+				063D1E5C1FEF3E0D001A6DC4 /* MultipeerConnectivityManagerDelegate.swift */,
+				063D1E581FEF3C43001A6DC4 /* MultipeerConnectivityError.swift */,
+			);
+			path = MPC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
