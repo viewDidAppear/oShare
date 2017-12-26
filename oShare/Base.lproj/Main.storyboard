@@ -78,23 +78,61 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IUP-pC-DMz">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="og7-8f-f6Q">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bkt-PR-2Op">
+                                        <rect key="frame" x="8" y="7" width="307" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="bvk-9h-Iyg"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hp9-yg-628">
+                                        <rect key="frame" x="323" y="7" width="44" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="2jL-j9-Tys"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="SIt-7s-YlA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Send"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="hp9-yg-628" firstAttribute="centerY" secondItem="og7-8f-f6Q" secondAttribute="centerY" id="0Vb-zI-6Jo"/>
+                                    <constraint firstItem="Bkt-PR-2Op" firstAttribute="centerY" secondItem="og7-8f-f6Q" secondAttribute="centerY" id="AAo-qJ-GF2"/>
+                                    <constraint firstAttribute="height" constant="44" id="MYd-VL-t2a"/>
+                                    <constraint firstAttribute="trailing" secondItem="hp9-yg-628" secondAttribute="trailing" constant="8" id="OKB-3m-1Jm"/>
+                                    <constraint firstItem="Bkt-PR-2Op" firstAttribute="leading" secondItem="og7-8f-f6Q" secondAttribute="leading" constant="8" id="Xzp-x3-kWR"/>
+                                    <constraint firstItem="hp9-yg-628" firstAttribute="leading" secondItem="Bkt-PR-2Op" secondAttribute="trailing" constant="8" id="vZe-n4-cee"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="IUP-pC-DMz" firstAttribute="top" secondItem="EnR-d4-2zA" secondAttribute="top" id="0Se-f6-DCH"/>
+                            <constraint firstItem="og7-8f-f6Q" firstAttribute="leading" secondItem="EnR-d4-2zA" secondAttribute="leading" id="0d2-0h-miV"/>
                             <constraint firstItem="EnR-d4-2zA" firstAttribute="trailing" secondItem="IUP-pC-DMz" secondAttribute="trailing" id="9KU-UO-o8c"/>
+                            <constraint firstItem="og7-8f-f6Q" firstAttribute="trailing" secondItem="EnR-d4-2zA" secondAttribute="trailing" id="gkC-MZ-1WW"/>
                             <constraint firstItem="IUP-pC-DMz" firstAttribute="leading" secondItem="EnR-d4-2zA" secondAttribute="leading" id="jUJ-0f-MNH"/>
-                            <constraint firstItem="EnR-d4-2zA" firstAttribute="bottom" secondItem="IUP-pC-DMz" secondAttribute="bottom" id="q8T-B9-6Qe"/>
+                            <constraint firstItem="EnR-d4-2zA" firstAttribute="bottom" secondItem="og7-8f-f6Q" secondAttribute="bottom" id="m80-ty-9iU"/>
+                            <constraint firstItem="og7-8f-f6Q" firstAttribute="top" secondItem="IUP-pC-DMz" secondAttribute="bottom" id="n3h-JZ-dj0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EnR-d4-2zA"/>
                     </view>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="m80-ty-9iU" id="fdD-45-fMk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8ba-8U-KQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="33"/>
+            <point key="canvasLocation" x="1133.5999999999999" y="32.833583208395808"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DIQ-EN-ePx">

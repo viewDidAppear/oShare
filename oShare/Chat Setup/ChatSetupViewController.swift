@@ -24,6 +24,10 @@ class ChatSetupViewController: UIViewController {
 
 		registerKeyboardNotifications()
 		configureSaveButton()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
 		configureTextField()
 	}
 	
@@ -73,6 +77,8 @@ class ChatSetupViewController: UIViewController {
 	
 	@IBAction private func saveDisplayName(sender: UIButton) {
 		guard let displayName = displayNameTextField.text, displayNameTextField.text?.isEmpty == false else { return }
+		
+		displayNameTextField.resignFirstResponder()
 		
 		UserDefaults.standard.set(displayName, forKey: "displayName")
 		
