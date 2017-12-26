@@ -12,14 +12,7 @@ class MultipeerConnectivityManager: NSObject {
 	private var connectivityBrowser: MCNearbyServiceBrowser
 	private var connectivityAdvertiser: MCNearbyServiceAdvertiser
 	
-	init(peer: MCPeerID) throws {
-
-		// If for any reason, the user has set an empty string as their display name, they will be unable to connect to any peers. This is because any surrounding peers will be unable to identify them.
-
-		guard peer.displayName.isEmpty == false else {
-			throw MultipeerConnectivityError.peerHasNoName
-		}
-		
+	init(peer: MCPeerID) {
 		self.peer = peer
 		self.session = MCSession(peer: peer)
 		
@@ -39,6 +32,26 @@ class MultipeerConnectivityManager: NSObject {
 		self.session.delegate = self
 		self.connectivityAdvertiser.delegate = self
 		self.connectivityBrowser.delegate = self
+	}
+	
+	func startBrowsingForDevices() {
+		connectivityBrowser.startBrowsingForPeers()
+		delegate?.beganBrowsing()
+	}
+	
+	func stopBrowsingForDevices() {
+		connectivityBrowser.stopBrowsingForPeers()
+		delegate?.stoppedBrowsing()
+	}
+	
+	func startAdvertising() {
+		connectivityAdvertiser.startAdvertisingPeer()
+		delegate?.beganAdvertising()
+	}
+	
+	func stopAdvertising() {
+		connectivityAdvertiser.stopAdvertisingPeer()
+		delegate?.stoppedAdvertising()
 	}
 	
 }

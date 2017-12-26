@@ -21,6 +21,7 @@
 		063D1E611FEF6FC4001A6DC4 /* PeerBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E601FEF6FC4001A6DC4 /* PeerBrowserViewController.swift */; };
 		063D1E631FF10F24001A6DC4 /* SheetAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E621FF10F24001A6DC4 /* SheetAnimator.swift */; };
 		063D1E651FF11ED7001A6DC4 /* CharacterCounterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E641FF11ED7001A6DC4 /* CharacterCounterTextField.swift */; };
+		063D1E681FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E671FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		063D1E601FEF6FC4001A6DC4 /* PeerBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerBrowserViewController.swift; sourceTree = "<group>"; };
 		063D1E621FF10F24001A6DC4 /* SheetAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetAnimator.swift; sourceTree = "<group>"; };
 		063D1E641FF11ED7001A6DC4 /* CharacterCounterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCounterTextField.swift; sourceTree = "<group>"; };
+		063D1E671FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerBrowserTableViewHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +100,7 @@
 				063D1E331FEF33FF001A6DC4 /* AppDelegate.swift */,
 				063D1E641FF11ED7001A6DC4 /* CharacterCounterTextField.swift */,
 				063D1E351FEF33FF001A6DC4 /* ChatSetupViewController.swift */,
-				063D1E601FEF6FC4001A6DC4 /* PeerBrowserViewController.swift */,
+				063D1E661FF1E90A001A6DC4 /* Peer Browser */,
 				063D1E371FEF33FF001A6DC4 /* Main.storyboard */,
 				063D1E3A1FEF33FF001A6DC4 /* Assets.xcassets */,
 				063D1E3C1FEF33FF001A6DC4 /* LaunchScreen.storyboard */,
@@ -127,6 +129,15 @@
 				063D1E541FEF3462001A6DC4 /* MultipeerConnectivity.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		063D1E661FF1E90A001A6DC4 /* Peer Browser */ = {
+			isa = PBXGroup;
+			children = (
+				063D1E601FEF6FC4001A6DC4 /* PeerBrowserViewController.swift */,
+				063D1E671FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift */,
+			);
+			path = "Peer Browser";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +246,7 @@
 				063D1E651FF11ED7001A6DC4 /* CharacterCounterTextField.swift in Sources */,
 				063D1E611FEF6FC4001A6DC4 /* PeerBrowserViewController.swift in Sources */,
 				063D1E5B1FEF3CCC001A6DC4 /* Constants.swift in Sources */,
+				063D1E681FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift in Sources */,
 				063D1E361FEF33FF001A6DC4 /* ChatSetupViewController.swift in Sources */,
 				063D1E341FEF33FF001A6DC4 /* AppDelegate.swift in Sources */,
 				063D1E5D1FEF3E0D001A6DC4 /* MultipeerConnectivityManagerDelegate.swift in Sources */,
