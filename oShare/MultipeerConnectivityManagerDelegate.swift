@@ -28,5 +28,17 @@ protocol MultipeerConnectivityManagerDelegate: class {
 	
 	/// This function will be triggred whenever we unsuccessfully attempt to browse for peers.
 	func failedToBrowseForPeers(withError error: Error)
+	
+	/// This function will be triggered whenever we start advertising ourselves to nearby peers.
+	func beganAdvertising()
+	
+	/// This function will be triggered whenever we stop advertising ourselves to nearby peers.
+	func stoppedAdvertising()
+	
+	/// This function will be triggered whenever we start browsing for nearby peers.
+	func beganBrowsing()
+	
+	/// This function will be triggered whenever we stop browsing for nearby peers.
+	func stoppedBrowsing()
 
 }
