@@ -3,6 +3,9 @@ import MultipeerConnectivity
 
 class ChatViewController: UIViewController {
 	
+	// This constraint will be used to adjust the UI in response to the keyboard being displayed/hidden.
+	@IBOutlet private var bottomConstraint: NSLayoutConstraint!
+	
 	private var appDelegate: AppDelegate!
 	
 	override func viewDidLoad() {
@@ -12,6 +15,7 @@ class ChatViewController: UIViewController {
 		self.appDelegate = appDelegate
 		
 		configureEndChatButton()
+		registerKeyboardNotifications()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -19,16 +23,48 @@ class ChatViewController: UIViewController {
 		navigationItem.hidesBackButton = true
 	}
 	
+	private func registerKeyboardNotifications() {
+		NotificationCenter.default.addObserver(self, selector: #selector(self.adjustForDisplayKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(self.adjustForHideKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+	}
+	
 	private func configureEndChatButton() {
 		let endChatButton = UIBarButtonItem(title: "End", style: .done, target: self, action: #selector(self.endChat(sender:)))
 		navigationItem.rightBarButtonItem = endChatButton
 	}
 	
+	// MARK: - Keyboard Adjustments
+	
+	@objc private func adjustForDisplayKeyboard(_ notification: Notification) {
+		if let keyboardSize = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+			bottomConstraint.constant = keyboardSize.size.height-(Constants.appDelegate?.window?.safeAreaInsets.bottom ?? 0)
+			UIView.animate(withDuration: 0.5) { [weak self] in
+				guard let strongSelf = self else { return }
+				strongSelf.view.setNeedsLayout()
+				strongSelf.view.layoutIfNeeded()
+			}
+		}
+	}
+	
+	@objc private func adjustForHideKeyboard(_ notification: Notification) {
+		bottomConstraint.constant = 0
+		UIView.animate(withDuration: 0.5) { [weak self] in
+			guard let strongSelf = self else { return }
+			strongSelf.view.setNeedsLayout()
+			strongSelf.view.layoutIfNeeded()
+		}
+	}
+	
+	// MARK: - End Chat
+	
 	@IBAction private func endChat(sender: UIBarButtonItem) {
 		// For the sake of simplicity, we are only going to support peer-to-peer chat, as opposed to multiple peers in a single chat. This is why I directly access [0] in the list of connected peers.
 		let messageDictionary: [String: String] = ["message": "_end_chat_"]
 		
-		if appDelegate.connectivityManager.send(dictionaryWithData: messageDictionary, toPeer: appDelegate.connectivityManager.session.connectedPeers[0]) {
+		guard let connectedPeer = appDelegate.connectivityManager.session.connectedPeers.first else { return }
+		
+		if appDelegate.connectivityManager.send(dictionaryWithData: messageDictionary, toPeer: connectedPeer) {
 			appDelegate.connectivityManager.session.disconnect()
 			appDelegate.connectivityManager.startAdvertising()
 			appDelegate.connectivityManager.startBrowsingForDevices()
