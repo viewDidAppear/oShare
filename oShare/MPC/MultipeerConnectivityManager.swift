@@ -98,7 +98,8 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 
 			delegate?.connected(withPeer: peerID)
 		case .connecting:
-			// TODO: - Display Indicator?
+			// In most cases tested, "connecting" only lasts for a split second, or a couple of seconds.
+			// As such, I decided to not implement a loading indicator.
 			break
 		default: break
 		}
@@ -106,19 +107,19 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 	
 	func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
 		let dictionary: [String: Any] = ["data": data, "peer": peerID]
-		NotificationCenter.default.post(name: NSNotification.Name("receivedData"), object: dictionary)
+		NotificationCenter.default.post(name: NSNotification.Name.oShareRecivedData, object: dictionary)
 	}
 	
 	func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-		// TODO: - Handle in next commits
+		// Not implemented. Delegate method required.
 	}
 	
 	func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-		// TODO: - Handle in next commits
+		// Not implemented. Delegate method required.
 	}
 	
 	func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-		// TODO: - Handle in next commits
+		// Not implemented. Delegate method required.
 	}
 
 	func session(_ session: MCSession, didReceiveCertificate certificate: [Any]?, fromPeer peerID: MCPeerID, certificateHandler: @escaping (Bool) -> Void) {
@@ -131,14 +132,14 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 extension MultipeerConnectivityManager: MCNearbyServiceBrowserDelegate {
 
 	func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
-		guard peerID != localPeer, foundPeers.contains(peerID) == false else { return }
+		guard foundPeers.contains(peerID) == false else { return }
 
 		foundPeers.append(peerID)
 		delegate?.foundPeer(peerID)
 	}
 
 	func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-		foundPeers = foundPeers.filter({ $0.displayName != peerID.displayName })
+		foundPeers = foundPeers.filter({ $0 != peerID })
 		delegate?.lostPeer(peerID)
 	}
 
