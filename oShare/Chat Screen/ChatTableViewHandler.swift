@@ -10,6 +10,7 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 	
 	// Keep track of the messages. Since this is strictly for data display, we don't want to access it outside of this handler.
 	private var messages: [Dictionary<String, String>] = []
+	private let messageCellIdentifier: String = "MessageCell"
 	
 	// MARK: - Reloading
 	
@@ -50,13 +51,13 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath)
-		let message = messages[indexPath.row]["message"]
-		let sender = messages[indexPath.row]["sender"] ?? Constants.Strings.theySaidString
+		let cell = tableView.dequeueReusableCell(withIdentifier: messageCellIdentifier, for: indexPath)
+		let message = messages[indexPath.row][DictionaryKeys.message.rawValue]
+		let sender = messages[indexPath.row][DictionaryKeys.sender.rawValue] ?? Constants.Strings.theySaidString
 		let senderLabelText: String
 		let senderColor: UIColor
 		
-		if sender == "self" {
+		if sender == Constants.Strings.selfSenderString {
 			senderLabelText = "I said:"
 			senderColor = UIColor.purple
 		} else {
@@ -78,3 +79,7 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 	}
 }
 
+private enum DictionaryKeys: String {
+	case sender
+	case message
+}
