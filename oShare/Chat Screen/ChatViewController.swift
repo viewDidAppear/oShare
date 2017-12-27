@@ -12,6 +12,8 @@ class ChatViewController: UIViewController {
 	private var messages: [Dictionary<String, String>] = []
 	private let chatTableViewHandler = ChatTableViewHandler()
 	
+	// MARK: - View Lifecycle
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -30,16 +32,10 @@ class ChatViewController: UIViewController {
 		navigationItem.hidesBackButton = true
 	}
 	
-	private func configureTableView() {
-		chatTableViewHandler.appDelegate = appDelegate
-		chatTableViewHandler.tableView = tableView
-		tableView.delegate = chatTableViewHandler
-		tableView.dataSource = chatTableViewHandler
-	}
-	
-	private func configureTextField() {
-		textField.delegate = self
-		textField.becomeFirstResponder()
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	// MARK: - Notifications
@@ -56,6 +52,18 @@ class ChatViewController: UIViewController {
 	
 	// MARK: - UI Configuration
 	
+	private func configureTableView() {
+		chatTableViewHandler.appDelegate = appDelegate
+		chatTableViewHandler.tableView = tableView
+		tableView.delegate = chatTableViewHandler
+		tableView.dataSource = chatTableViewHandler
+	}
+	
+	private func configureTextField() {
+		textField.delegate = self
+		textField.becomeFirstResponder()
+	}
+	
 	private func configureEndChatButton() {
 		let endChatButton = UIBarButtonItem(title: "End", style: .done, target: self, action: #selector(self.endChat(sender:)))
 		navigationItem.rightBarButtonItem = endChatButton
@@ -68,7 +76,7 @@ class ChatViewController: UIViewController {
 			let object = notification.object as? [String: Any],
 			let data = object["data"] as? Data,
 			let peer = object["peer"] as? MCPeerID,
-		  let message = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: String]
+			let message = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: String]
 			else { return }
 		
 		if let message = message["message"] {
