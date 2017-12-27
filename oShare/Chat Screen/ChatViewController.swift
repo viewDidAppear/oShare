@@ -23,6 +23,7 @@ class ChatViewController: UIViewController {
 		configureTableView()
 		configureTextField()
 		configureEndChatButton()
+		configureNavigationBar()
 		registerKeyboardNotifications()
 		registerDataReceivedNotification()
 	}
@@ -47,10 +48,15 @@ class ChatViewController: UIViewController {
 	}
 	
 	private func registerDataReceivedNotification() {
-		NotificationCenter.default.addObserver(self, selector: #selector(self.handleDataReceived(notification:)), name: NSNotification.Name("receivedData"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.handleDataReceived(notification:)), name: NSNotification.Name.oShareRecivedData, object: nil)
 	}
 	
 	// MARK: - UI Configuration
+	
+	private func configureNavigationBar() {
+		guard let peer = appDelegate.connectivityManager.session.connectedPeers.first else { return }
+		navigationItem.title = "\(peer.displayName)"
+	}
 	
 	private func configureTableView() {
 		chatTableViewHandler.appDelegate = appDelegate

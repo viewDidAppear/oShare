@@ -23,6 +23,7 @@
 		063D1E651FF11ED7001A6DC4 /* CharacterCounterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E641FF11ED7001A6DC4 /* CharacterCounterTextField.swift */; };
 		063D1E681FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E671FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift */; };
 		063D1E6D1FF279B7001A6DC4 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E6C1FF279B7001A6DC4 /* ChatViewController.swift */; };
+		068F2C0E1FF38AE000EA9D1E /* NSNotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F2C0D1FF38AE000EA9D1E /* NSNotificationExtension.swift */; };
 		06FD152F1FF28F980015E9FD /* ChatTableViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FD152E1FF28F980015E9FD /* ChatTableViewHandler.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		063D1E641FF11ED7001A6DC4 /* CharacterCounterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCounterTextField.swift; sourceTree = "<group>"; };
 		063D1E671FF1E922001A6DC4 /* PeerBrowserTableViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerBrowserTableViewHandler.swift; sourceTree = "<group>"; };
 		063D1E6C1FF279B7001A6DC4 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		068F2C0D1FF38AE000EA9D1E /* NSNotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationExtension.swift; sourceTree = "<group>"; };
 		06FD152E1FF28F980015E9FD /* ChatTableViewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 				063D1E6A1FF22453001A6DC4 /* MPC */,
 				063D1E691FF2243C001A6DC4 /* Chat Setup */,
 				063D1E6B1FF2795B001A6DC4 /* Chat Screen */,
+				068F2C0C1FF38ACF00EA9D1E /* Extensions */,
 				063D1E661FF1E90A001A6DC4 /* Peer Browser */,
 				063D1E371FEF33FF001A6DC4 /* Main.storyboard */,
 				063D1E3A1FEF33FF001A6DC4 /* Assets.xcassets */,
@@ -168,6 +171,14 @@
 				06FD152E1FF28F980015E9FD /* ChatTableViewHandler.swift */,
 			);
 			path = "Chat Screen";
+			sourceTree = "<group>";
+		};
+		068F2C0C1FF38ACF00EA9D1E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				068F2C0D1FF38AE000EA9D1E /* NSNotificationExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +295,7 @@
 				063D1E5D1FEF3E0D001A6DC4 /* MultipeerConnectivityManagerDelegate.swift in Sources */,
 				063D1E591FEF3C43001A6DC4 /* MultipeerConnectivityError.swift in Sources */,
 				063D1E631FF10F24001A6DC4 /* SheetAnimator.swift in Sources */,
+				068F2C0E1FF38AE000EA9D1E /* NSNotificationExtension.swift in Sources */,
 				063D1E571FEF34A9001A6DC4 /* MultipeerConnectivityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

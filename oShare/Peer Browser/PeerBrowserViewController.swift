@@ -20,6 +20,10 @@ class PeerBrowserViewController: UIViewController {
 		
 		guard let appDelegate = Constants.appDelegate else { return }
 		self.appDelegate = appDelegate
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		
 		addDynamicTextObservers()
 		checkDisplayName()
@@ -41,7 +45,6 @@ class PeerBrowserViewController: UIViewController {
 	private func configureHandler() {
 		peerTableViewHandler.tableView = peerTableView
 		peerTableViewHandler.appDelegate = appDelegate
-
 		peerTableView.delegate = peerTableViewHandler
 		peerTableView.dataSource = peerTableViewHandler
 	}
