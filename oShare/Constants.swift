@@ -7,9 +7,11 @@ struct Constants {
 	static let appDelegate: AppDelegate? = UIApplication.shared.delegate as? AppDelegate
 	
 	struct Strings {
-		static let serviceType: String = "oshare-chat"
-		static let chatScreenSegue: String = "chatScreenSegue"
-		static let endChatCode: String = "_end_chat_"
+		static let serviceTypeString: String = "oshare-chat"
+		static let chatScreenSegueString: String = "chatScreenSegue"
+		static let endChatCodeString: String = "_end_chat_"
+		static let theySaidString: String = "They"
+		static let selfSenderString: String = "self"
 	}
 	
 	struct Numbers {
