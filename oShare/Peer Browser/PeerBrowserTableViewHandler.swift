@@ -10,6 +10,7 @@ class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDat
 	
 	// Keep track of the number of peers. Since this is strictly for data display, we don't want to access it outside of this handler.
 	private var foundPeers: [MCPeerID] = []
+	private let peerCellIdentifier: String = "PeerCell"
 	
 	// Some example status messages. Theoretically, a user could set this in their app preferences, to advertise their current status to their team. I shamelessly ripped this idea from WhatsApp, Slack and Skype.
 	// Because these messages are accessed randomly, an extremely large font size in Settings can result in the messages changing upon scroll. A full-fledged implementation would not have this issue.
@@ -47,16 +48,12 @@ class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDat
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		
-		guard let selectedPeer = appDelegate?.connectivityManager.foundPeers[indexPath.row] else {
-			// TODO: - Handle error should this fail.
-			return
-		}
-		
+		guard let selectedPeer = appDelegate?.connectivityManager.foundPeers[indexPath.row] else { return }
 		appDelegate?.connectivityManager.invitePeerToChat(peer: selectedPeer)
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "PeerCell", for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: peerCellIdentifier, for: indexPath)
 		let randomIndex = Int(arc4random_uniform(UInt32(exampleStatusMessages.count)))
 		
 		cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
