@@ -22,6 +22,7 @@ class ChatViewController: UIViewController {
 		configureTextField()
 		configureEndChatButton()
 		registerKeyboardNotifications()
+		registerDataReceivedNotification()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -41,15 +42,48 @@ class ChatViewController: UIViewController {
 		textField.becomeFirstResponder()
 	}
 	
+	// MARK: - Notifications
+	
 	private func registerKeyboardNotifications() {
 		NotificationCenter.default.addObserver(self, selector: #selector(self.adjustForDisplayKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(self.adjustForHideKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 	}
 	
+	private func registerDataReceivedNotification() {
+		NotificationCenter.default.addObserver(self, selector: #selector(self.test(notification:)), name: NSNotification.Name("receivedData"), object: nil)
+	}
+	
+	// MARK: - UI Configuration
+	
 	private func configureEndChatButton() {
 		let endChatButton = UIBarButtonItem(title: "End", style: .done, target: self, action: #selector(self.endChat(sender:)))
 		navigationItem.rightBarButtonItem = endChatButton
+	}
+	
+	// MARK: - Data
+	
+	@objc private func test(notification: Notification) {
+		guard
+			let object = notification.object as? [String: Any],
+			let data = object["data"] as? Data,
+			let peer = object["peer"] as? MCPeerID,
+		  let message = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: String]
+			else { return }
+		
+		if let message = message["message"] {
+			if message != Constants.Strings.endChatCode {
+				let messageDictionary: [String: String] = ["sender": peer.displayName, "message": message]
+				messages.append(messageDictionary)
+				
+				OperationQueue.main.addOperation { [weak self] () -> Void in
+					guard let strongSelf = self else { return }
+					strongSelf.chatTableViewHandler.reloadData(messages: strongSelf.messages)
+				}
+			} else {
+				endChat(sender: nil)
+			}
+		}
 	}
 	
 	// MARK: - Keyboard Adjustments
@@ -76,9 +110,9 @@ class ChatViewController: UIViewController {
 	
 	// MARK: - End Chat
 	
-	@IBAction private func endChat(sender: UIBarButtonItem) {
+	@IBAction private func endChat(sender: UIBarButtonItem?) {
 		// For the sake of simplicity, we are only going to support peer-to-peer chat, as opposed to multiple peers in a single chat. This is why I directly access [0] in the list of connected peers.
-		let messageDictionary: [String: String] = ["message": "_end_chat_"]
+		let messageDictionary: [String: String] = ["message": Constants.Strings.endChatCode]
 		
 		guard let connectedPeer = appDelegate.connectivityManager.session.connectedPeers.first else { return }
 		

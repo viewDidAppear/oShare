@@ -105,7 +105,8 @@ extension MultipeerConnectivityManager: MCSessionDelegate {
 	}
 	
 	func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-		// TODO: - Handle in next commits
+		let dictionary: [String: Any] = ["data": data, "peer": peerID]
+		NotificationCenter.default.post(name: NSNotification.Name("receivedData"), object: dictionary)
 	}
 	
 	func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {

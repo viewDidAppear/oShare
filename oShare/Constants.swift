@@ -9,6 +9,7 @@ struct Constants {
 	struct Strings {
 		static let serviceType: String = "oshare-chat"
 		static let chatScreenSegue: String = "chatScreenSegue"
+		static let endChatCode: String = "_end_chat_"
 	}
 	
 	struct Numbers {
