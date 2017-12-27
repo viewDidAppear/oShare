@@ -51,7 +51,7 @@ class ChatViewController: UIViewController {
 	}
 	
 	private func registerDataReceivedNotification() {
-		NotificationCenter.default.addObserver(self, selector: #selector(self.test(notification:)), name: NSNotification.Name("receivedData"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.handleDataReceived(notification:)), name: NSNotification.Name("receivedData"), object: nil)
 	}
 	
 	// MARK: - UI Configuration
@@ -63,7 +63,7 @@ class ChatViewController: UIViewController {
 	
 	// MARK: - Data
 	
-	@objc private func test(notification: Notification) {
+	@objc private func handleDataReceived(notification: Notification) {
 		guard
 			let object = notification.object as? [String: Any],
 			let data = object["data"] as? Data,
@@ -124,6 +124,8 @@ class ChatViewController: UIViewController {
 			navigationController?.popViewController(animated: true)
 		}
 	}
+	
+	// MARK: - Send Message
 	
 	@IBAction private func sendMessage(sender: UIButton?) {
 		// Only proceed sending data if the text is not empty.
