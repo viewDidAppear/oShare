@@ -52,14 +52,24 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath)
 		let message = messages[indexPath.row]["message"]
-		let sender = messages[indexPath.row]["sender"]
+		let sender = messages[indexPath.row]["sender"] ?? "They"
+		let senderLabelText: String
+		let senderColor: UIColor
 		
-		cell.textLabel?.textAlignment = sender == "self" ? .right : .left
-		cell.detailTextLabel?.textAlignment = sender == "self" ? .right : .left
+		if sender == "self"{
+			senderLabelText = "I said:"
+			senderColor = UIColor.purple
+		}
+		else{
+			senderLabelText = "\(sender) said:"
+			senderColor = UIColor.orange
+		}
+		
 		cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
 		cell.textLabel?.text = message
-		cell.detailTextLabel?.text = sender
 		cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+		cell.detailTextLabel?.text = senderLabelText
+		cell.detailTextLabel?.textColor = senderColor
 		
 		return cell
 	}
