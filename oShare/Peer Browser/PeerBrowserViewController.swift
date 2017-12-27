@@ -163,7 +163,7 @@ extension PeerBrowserViewController: MultipeerConnectivityManagerDelegate {
 	
 	func connected(withPeer peer: MCPeerID) {
 		OperationQueue.main.addOperation { [weak self] in
-			self?.performSegue(withIdentifier: Constants.Strings.chatScreenSegue, sender: nil)
+			self?.performSegue(withIdentifier: Constants.Strings.chatScreenSegueString, sender: nil)
 		}
 	}
 	

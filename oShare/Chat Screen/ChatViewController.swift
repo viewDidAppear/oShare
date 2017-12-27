@@ -80,7 +80,7 @@ class ChatViewController: UIViewController {
 			else { return }
 		
 		if let message = message["message"] {
-			if message != Constants.Strings.endChatCode {
+			if message != Constants.Strings.endChatCodeString {
 				let messageDictionary: [String: String] = ["sender": peer.displayName, "message": message]
 				messages.append(messageDictionary)
 				
@@ -120,7 +120,7 @@ class ChatViewController: UIViewController {
 	
 	@IBAction private func endChat(sender: UIBarButtonItem?) {
 		// For the sake of simplicity, we are only going to support peer-to-peer chat, as opposed to multiple peers in a single chat. This is why I directly access [0] in the list of connected peers.
-		let messageDictionary: [String: String] = ["message": Constants.Strings.endChatCode]
+		let messageDictionary: [String: String] = ["message": Constants.Strings.endChatCodeString]
 		
 		guard let connectedPeer = appDelegate.connectivityManager.session.connectedPeers.first else { return }
 		

@@ -19,13 +19,13 @@ class MultipeerConnectivityManager: NSObject {
 		
 		self.connectivityBrowser = MCNearbyServiceBrowser(
 			peer: peer,
-			serviceType: Constants.Strings.serviceType
+			serviceType: Constants.Strings.serviceTypeString
 		)
 		
 		self.connectivityAdvertiser = MCNearbyServiceAdvertiser(
 			peer: peer,
 			discoveryInfo: nil,
-			serviceType: Constants.Strings.serviceType
+			serviceType: Constants.Strings.serviceTypeString
 		)
 
 		super.init()
