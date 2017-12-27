@@ -12,6 +12,8 @@ struct Constants {
 		static let endChatCodeString: String = "_end_chat_"
 		static let theySaidString: String = "They"
 		static let selfSenderString: String = "self"
+		static let closeButtonString: String = "Close"
+		static let endButtonString: String = "End"
 	}
 	
 	struct Numbers {
