@@ -89,8 +89,24 @@ class ChatViewController: UIViewController {
 					strongSelf.chatTableViewHandler.reloadData(messages: strongSelf.messages)
 				}
 			} else {
-				endChat(sender: nil)
+				// If we receive the pre-set end chat code, we should be told that the peer ended the chat.
+				// Randomly backing out of the chat screen could be quite confusing otherwise.
+				handleChatEnded(peer)
 			}
+		}
+	}
+	
+	private func handleChatEnded(_ peer: MCPeerID) {
+		let alert = UIAlertController(title: "👋", message: "\(peer.displayName) ended the chat.", preferredStyle: .alert)
+		let doneAction: UIAlertAction = UIAlertAction(title: "Close", style: .default) { [weak self] (action) in
+			self?.appDelegate.connectivityManager.session.disconnect()
+			self?.navigationController?.popViewController(animated: true)
+		}
+		
+		alert.addAction(doneAction)
+		
+		OperationQueue.main.addOperation { [weak self] () -> Void in
+			self?.present(alert, animated: true, completion: nil)
 		}
 	}
 	
@@ -120,28 +136,30 @@ class ChatViewController: UIViewController {
 	
 	@IBAction private func endChat(sender: UIBarButtonItem?) {
 		// For the sake of simplicity, we are only going to support peer-to-peer chat, as opposed to multiple peers in a single chat. This is why I directly access [0] in the list of connected peers.
-		let messageDictionary: [String: String] = ["message": Constants.Strings.endChatCodeString]
+		let messageDictionary: [String: String] = ["sender": "self", "message": Constants.Strings.endChatCodeString]
+		let waitTimeBeforeDisconnection: TimeInterval = 2
 		
 		guard let connectedPeer = appDelegate.connectivityManager.session.connectedPeers.first else { return }
 		
 		if appDelegate.connectivityManager.send(dictionaryWithData: messageDictionary, toPeer: connectedPeer) {
-			appDelegate.connectivityManager.session.disconnect()
-			appDelegate.connectivityManager.startAdvertising()
-			appDelegate.connectivityManager.startBrowsingForDevices()
-			
-			navigationController?.popViewController(animated: true)
+			DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+waitTimeBeforeDisconnection, execute: { [weak self] in
+					self?.appDelegate.connectivityManager.session.disconnect()
+					self?.appDelegate.connectivityManager.startAdvertising()
+					self?.appDelegate.connectivityManager.startBrowsingForDevices()
+					self?.navigationController?.popViewController(animated: true)
+			})
 		}
 	}
 	
 	// MARK: - Send Message
 	
 	@IBAction private func sendMessage(sender: UIButton?) {
-		// Only proceed sending data if the text is not empty.
+		// Only proceed sending data if the text is not empty, and if there is still a connected peer.
 		guard
 			let text = textField.text,
 			let peer = appDelegate.connectivityManager.session.connectedPeers.first,
 			text.isEmpty == false
-			else { return } // Why is the default indentation like this?
+			else { return }
 		
 		let messageData: [String: String] = ["sender": "self", "message": text]
 		
