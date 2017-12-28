@@ -9,6 +9,7 @@ class ChatSetupViewController: UIViewController {
 
 	// As per recent WWDC sessions, IBOutlet properties should be `strong`. I generally prefer to keep them `weak` as old habits die hard, however for standards sake, I'll keep them strong.
 	@IBOutlet private var displayNameTextField: CharacterCounterTextField!
+	@IBOutlet private var informationLabel: UILabel!
 	@IBOutlet private var continueButton: UIBarButtonItem!
 	
 	// A delegate declaration should always be `weak` and Optional, so as to avoid reference cycles.
@@ -28,6 +29,7 @@ class ChatSetupViewController: UIViewController {
 
 		registerKeyboardNotifications()
 		configureSaveButton()
+		configureInformationText()
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -42,6 +44,11 @@ class ChatSetupViewController: UIViewController {
 	}
 	
 	// MARK: - UI Configuration
+	
+	private func configureInformationText() {
+		// Note that due to the custom presentation of this view controller, responding _live_ to the changes made in Accessibility proved a challenge. For simplicity reasons, I won't handle it, however I will support the preferred font style/size.
+		informationLabel.font = UIFont.preferredFont(forTextStyle: .body)
+	}
 	
 	private func configureSaveButton() {
 		continueButton.isEnabled = false

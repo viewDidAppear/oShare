@@ -40,22 +40,18 @@ class MultipeerConnectivityManager: NSObject {
 	
 	func startBrowsingForDevices() {
 		connectivityBrowser.startBrowsingForPeers()
-		delegate?.beganBrowsing()
 	}
 	
 	func stopBrowsingForDevices() {
 		connectivityBrowser.stopBrowsingForPeers()
-		delegate?.stoppedBrowsing()
 	}
 	
 	func startAdvertising() {
 		connectivityAdvertiser.startAdvertisingPeer()
-		delegate?.beganAdvertising()
 	}
 	
 	func stopAdvertising() {
 		connectivityAdvertiser.stopAdvertisingPeer()
-		delegate?.stoppedAdvertising()
 	}
 	
 	func invitePeerToChat(peer: MCPeerID) {
