@@ -8,8 +8,8 @@ protocol ChatSetupViewControllerDelegate: class {
 class ChatSetupViewController: UIViewController {
 
 	// As per recent WWDC sessions, IBOutlet properties should be `strong`. I generally prefer to keep them `weak` as old habits die hard, however for standards sake, I'll keep them strong.
-	@IBOutlet var displayNameTextField: CharacterCounterTextField!
-	@IBOutlet var continueButton: UIBarButtonItem!
+	@IBOutlet private var displayNameTextField: CharacterCounterTextField!
+	@IBOutlet private var continueButton: UIBarButtonItem!
 	
 	// A delegate declaration should always be `weak` and Optional, so as to avoid reference cycles.
 	weak var delegate: ChatSetupViewControllerDelegate?

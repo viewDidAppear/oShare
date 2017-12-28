@@ -3,12 +3,11 @@ import MultipeerConnectivity
 
 class PeerBrowserViewController: UIViewController {
 	
-	@IBOutlet var peerTableView: UITableView!
-	@IBOutlet var discoverabilitySwitch: UISwitch!
+	@IBOutlet private var peerTableView: UITableView!
+	@IBOutlet private var discoverabilitySwitch: UISwitch!
 	
 	private let transitionAnimator = SheetAnimator()
 	private let peerTableViewHandler = PeerBrowserTableViewHandler()
-	private var isAdvertising = true
 	private var appDelegate: AppDelegate!
 	
 	// MARK: - View Lifecycle
@@ -36,7 +35,7 @@ class PeerBrowserViewController: UIViewController {
 		NotificationCenter.default.removeObserver(self)
 	}
 	
-	// MARK: - Configuration
+	// MARK: - UI Configuration
 	
 	private func addDynamicTextObservers() {
 		NotificationCenter.default.addObserver(self, selector: #selector(self.handleDynamicTextChanges(notification:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
@@ -108,23 +107,9 @@ extension PeerBrowserViewController: ChatSetupViewControllerDelegate {
 	}
 }
 
+// MARK: - MultipeerConnectivityManagerDelegate
+
 extension PeerBrowserViewController: MultipeerConnectivityManagerDelegate {
-	
-	func beganBrowsing() {
-		
-	}
-	
-	func beganAdvertising() {
-		isAdvertising = true
-	}
-	
-	func stoppedBrowsing() {
-		
-	}
-	
-	func stoppedAdvertising() {
-		isAdvertising = false
-	}
 
 	func receivedInvitation(fromPeer peer: MCPeerID, context: Data?) {
 		let alert = UIAlertController(title: "👋", message: "\(peer.displayName) would like to chat with you!", preferredStyle: UIAlertControllerStyle.alert)

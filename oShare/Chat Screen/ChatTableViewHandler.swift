@@ -79,6 +79,8 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 	}
 }
 
+// MARK: - DictionaryKeys Enum
+
 private enum DictionaryKeys: String {
 	case sender
 	case message
