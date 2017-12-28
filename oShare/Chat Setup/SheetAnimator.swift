@@ -1,6 +1,8 @@
 import UIKit
 import Foundation
 
+// I decided to invoke this brilliant little protocol so as to only occupy as much of the screen as used by the view controller.
+
 class SheetAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 	
 	var isPresenting = true
@@ -21,7 +23,8 @@ class SheetAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 		let containerView = transitionContext.containerView
 		let bottomInset = Constants.appDelegate?.window?.safeAreaInsets.bottom ?? 0
 		
-		// We want to ensure we actually have a destination.
+		// We want to ensure we actually have a destination, before performing any animation.
+		// This should always evaluate to true, however the properties return as Optional by default and so need to be unwrapped.
 		guard let sheetView = isPresenting ? transitionContext.view(forKey: .to) : transitionContext.view(forKey: .from) else { return }
 		
 		popoverHeight = sheetView.systemLayoutSizeFitting(CGSize(width: UIScreen.main.bounds.size.width, height: 100), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow).height

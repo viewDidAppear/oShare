@@ -11,13 +11,17 @@ class ChatSetupViewController: UIViewController {
 	@IBOutlet var displayNameTextField: CharacterCounterTextField!
 	@IBOutlet var continueButton: UIBarButtonItem!
 	
+	// A delegate declaration should always be `weak` and Optional, so as to avoid reference cycles.
 	weak var delegate: ChatSetupViewControllerDelegate?
 	
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		
+		// To display this "partially" over the previous view controller, this needs to be set to prevent the "origin" (during presentation) and "destination" (during dismissal) from being removed.
 		modalPresentationStyle = .overCurrentContext
 	}
+	
+	// MARK: - View Lifecycle
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -37,6 +41,8 @@ class ChatSetupViewController: UIViewController {
 		NotificationCenter.default.removeObserver(self)
 	}
 	
+	// MARK: - UI Configuration
+	
 	private func configureSaveButton() {
 		continueButton.isEnabled = false
 	}
@@ -52,6 +58,15 @@ class ChatSetupViewController: UIViewController {
 			continueButton.isEnabled = true
 		}
 	}
+	
+	private func updateCharacterCountLabel(withCount count: Int) {
+		// The MCPeerID documentation states that the hard limit for display names is 63 bytes in UTF-8 encoding. I could set the limit to 63 characters, however a user may be partial to using Emoji, or may use a language such as 日本語, which characters have a variable byte length. 20 seems like a safe value here.
+		
+		continueButton.isEnabled = count <= Constants.Numbers.maximumDisplayNameLength && count > 0
+		displayNameTextField.updateWith(count: count)
+	}
+	
+	// MARK: - Notifications
 	
 	private func registerKeyboardNotifications() {
 		NotificationCenter.default.addObserver(self, selector: #selector(ChatSetupViewController.adjustForDisplayKeyboard(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -75,6 +90,8 @@ class ChatSetupViewController: UIViewController {
 			}
 	}
 	
+	// MARK: - Call To Action (Save Name)
+	
 	@IBAction private func saveDisplayName(sender: UIButton) {
 		guard let displayName = displayNameTextField.text, displayNameTextField.text?.isEmpty == false else { return }
 		
@@ -87,14 +104,9 @@ class ChatSetupViewController: UIViewController {
 		})
 	}
 	
-	private func updateCharacterCountLabel(withCount count: Int) {
-		// The MCPeerID documentation states that the hard limit for display names is 63 bytes in UTF-8 encoding. I could set the limit to 63 characters, however a user may be partial to using Emoji, or may use a language such as 日本語, which characters have a variable byte length. 20 seems like a safe value here.
-		
-		continueButton.isEnabled = count <= Constants.Numbers.maximumDisplayNameLength && count > 0
-		displayNameTextField.updateWith(count: count)
-	}
-	
 }
+
+// MARK: - UITextFieldDelegate
 
 extension ChatSetupViewController: UITextFieldDelegate {
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
