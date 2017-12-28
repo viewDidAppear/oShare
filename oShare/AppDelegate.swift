@@ -11,11 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func configureConnectivityManager() {
 		// Retrieve the display name from UserDefaults, and use that to create our MCPeerID.
-		guard let displayName = UserDefaults.standard.value(forKey: "displayName") as? String, displayName.count > 0 && displayName.count <= 20 else {
-			
-			// If for any reason, the user has somehow set an empty string or a too-long name as their display name, they will be unable to connect to any peers. Handle this error.
-			return
-		}
+		guard let displayName = UserDefaults.standard.value(forKey: "displayName") as? String, displayName.count > 0 && displayName.count <= 20 else { return }
 		
 		connectivityManager = MultipeerConnectivityManager(peer: MCPeerID(displayName: displayName))
 		connectivityManager.startBrowsingForDevices()
