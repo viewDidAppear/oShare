@@ -82,10 +82,10 @@ class ChatViewController: UIViewController {
 			let object = notification.object as? [String: Any],
 			let data = object[DictionaryKeys.data.rawValue] as? Data,
 			let peer = object[DictionaryKeys.peer.rawValue] as? MCPeerID,
-			let message = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: String]
+			let messageData = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: String]
 			else { return }
 		
-		if let message = message[DictionaryKeys.message.rawValue] {
+		if let message = messageData[DictionaryKeys.message.rawValue] {
 			if message != Constants.Strings.endChatCodeString {
 				let messageDictionary: [String: String] = [DictionaryKeys.sender.rawValue: peer.displayName, DictionaryKeys.message.rawValue: message]
 				messages.append(messageDictionary)
@@ -138,7 +138,7 @@ class ChatViewController: UIViewController {
 		}
 	}
 	
-	// MARK: - End Chat
+	// MARK: - Call To Action (End Chat)
 	
 	@IBAction private func endChat(sender: UIBarButtonItem?) {
 		// For the sake of simplicity, we are only going to support peer-to-peer chat, as opposed to multiple peers in a single chat. This is why I directly access [0] in the list of connected peers.
@@ -157,7 +157,7 @@ class ChatViewController: UIViewController {
 		}
 	}
 	
-	// MARK: - Send Message
+	// MARK: - Call To Action (Send Message)
 	
 	@IBAction private func sendMessage(sender: UIButton?) {
 		// Only proceed sending data if the text is not empty, and if there is still a connected peer.
@@ -181,6 +181,8 @@ class ChatViewController: UIViewController {
 	
 }
 
+// MARK: - UITextFieldDelegate
+
 extension ChatViewController: UITextFieldDelegate {
 
 	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -191,6 +193,8 @@ extension ChatViewController: UITextFieldDelegate {
 	}
 
 }
+
+// MARK: - DictionaryKeys Enum
 
 private enum DictionaryKeys: String {
 	case data
