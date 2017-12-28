@@ -247,6 +247,7 @@
                     <connections>
                         <outlet property="continueButton" destination="1w9-ZM-hRZ" id="yJJ-we-swa"/>
                         <outlet property="displayNameTextField" destination="2gU-0f-q0L" id="QUc-tN-7zp"/>
+                        <outlet property="informationLabel" destination="Psc-uX-QMo" id="fhx-aA-IIM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F4b-BC-acw" userLabel="First Responder" sceneMemberID="firstResponder"/>
