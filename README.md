@@ -11,7 +11,15 @@ You may take this source code and use it freely, as per the MIT License. All I a
 
 # Images
 
-<img src="" width="50%"/>
+Hello from the other side!<br/>
+<img src="./Screenshots/LEFT.png" width="35%"/>
+<img src="./Screenshots/RIGHT.png" width="35%"/>
+
+Hey, I would like to chat with you!<br/>
+<img src="./Screenshots/INVITE.png" width="35%"/>
+
+Let's go to Karaoke.<br/>
+<img src="./Screenshots/KARAOKE.png" width="35%"/>
 
 # Disclaimers
 
