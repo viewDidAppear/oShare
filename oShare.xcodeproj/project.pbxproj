@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0616D0121FF5D45100A72E15 /* XCTest+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616D0111FF5D45100A72E15 /* XCTest+Eventually.swift */; };
+		0616D0141FF5D83700A72E15 /* ChatTableViewHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616D0131FF5D83700A72E15 /* ChatTableViewHandlerTests.swift */; };
 		063D1E341FEF33FF001A6DC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E331FEF33FF001A6DC4 /* AppDelegate.swift */; };
 		063D1E361FEF33FF001A6DC4 /* ChatSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E351FEF33FF001A6DC4 /* ChatSetupViewController.swift */; };
 		063D1E391FEF33FF001A6DC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 063D1E371FEF33FF001A6DC4 /* Main.storyboard */; };
 		063D1E3B1FEF33FF001A6DC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 063D1E3A1FEF33FF001A6DC4 /* Assets.xcassets */; };
 		063D1E3E1FEF33FF001A6DC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 063D1E3C1FEF33FF001A6DC4 /* LaunchScreen.storyboard */; };
-		063D1E491FEF33FF001A6DC4 /* oShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E481FEF33FF001A6DC4 /* oShareTests.swift */; };
+		063D1E491FEF33FF001A6DC4 /* PeerBrowserTableViewHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E481FEF33FF001A6DC4 /* PeerBrowserTableViewHandlerTests.swift */; };
 		063D1E551FEF3462001A6DC4 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 063D1E541FEF3462001A6DC4 /* MultipeerConnectivity.framework */; };
 		063D1E571FEF34A9001A6DC4 /* MultipeerConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E561FEF34A9001A6DC4 /* MultipeerConnectivityManager.swift */; };
 		063D1E591FEF3C43001A6DC4 /* MultipeerConnectivityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E581FEF3C43001A6DC4 /* MultipeerConnectivityError.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0616D0111FF5D45100A72E15 /* XCTest+Eventually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Eventually.swift"; sourceTree = "<group>"; };
+		0616D0131FF5D83700A72E15 /* ChatTableViewHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewHandlerTests.swift; sourceTree = "<group>"; };
 		063D1E301FEF33FF001A6DC4 /* oShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = oShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		063D1E331FEF33FF001A6DC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		063D1E351FEF33FF001A6DC4 /* ChatSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSetupViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +50,7 @@
 		063D1E3D1FEF33FF001A6DC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		063D1E3F1FEF33FF001A6DC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		063D1E441FEF33FF001A6DC4 /* oShareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = oShareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		063D1E481FEF33FF001A6DC4 /* oShareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = oShareTests.swift; sourceTree = "<group>"; };
+		063D1E481FEF33FF001A6DC4 /* PeerBrowserTableViewHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerBrowserTableViewHandlerTests.swift; sourceTree = "<group>"; };
 		063D1E4A1FEF33FF001A6DC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		063D1E541FEF3462001A6DC4 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		063D1E561FEF34A9001A6DC4 /* MultipeerConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerConnectivityManager.swift; sourceTree = "<group>"; };
@@ -121,7 +125,9 @@
 		063D1E471FEF33FF001A6DC4 /* oShareTests */ = {
 			isa = PBXGroup;
 			children = (
-				063D1E481FEF33FF001A6DC4 /* oShareTests.swift */,
+				063D1E481FEF33FF001A6DC4 /* PeerBrowserTableViewHandlerTests.swift */,
+				0616D0131FF5D83700A72E15 /* ChatTableViewHandlerTests.swift */,
+				0616D0111FF5D45100A72E15 /* XCTest+Eventually.swift */,
 				063D1E4A1FEF33FF001A6DC4 /* Info.plist */,
 			);
 			path = oShareTests;
@@ -304,7 +310,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				063D1E491FEF33FF001A6DC4 /* oShareTests.swift in Sources */,
+				063D1E491FEF33FF001A6DC4 /* PeerBrowserTableViewHandlerTests.swift in Sources */,
+				0616D0141FF5D83700A72E15 /* ChatTableViewHandlerTests.swift in Sources */,
+				0616D0121FF5D45100A72E15 /* XCTest+Eventually.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

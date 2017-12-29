@@ -9,7 +9,7 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 	weak var appDelegate: AppDelegate?
 	
 	// Keep track of the messages. Since this is strictly for data display, we don't want to access it outside of this handler.
-	private var messages: [Dictionary<String, String>] = []
+	private(set) var messages: [Dictionary<String, String>] = []
 	private let messageCellIdentifier: String = "MessageCell"
 	
 	// MARK: - Reloading
@@ -51,11 +51,17 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: messageCellIdentifier, for: indexPath)
 		let message = messages[indexPath.row][DictionaryKeys.message.rawValue]
 		let sender = messages[indexPath.row][DictionaryKeys.sender.rawValue] ?? Constants.Strings.theySaidString
 		let senderLabelText: String
 		let senderColor: UIColor
+
+		var cell = tableView.dequeueReusableCell(withIdentifier: messageCellIdentifier)
+		
+		// This is implemented for testability purposes. I wish to test the sender logic below, and by default, you just get a textLabel.
+		if cell == nil {
+			cell = UITableViewCell(style: .subtitle, reuseIdentifier: messageCellIdentifier)
+		}
 		
 		if sender == Constants.Strings.selfSenderString {
 			senderLabelText = "I said:"
@@ -65,13 +71,13 @@ class ChatTableViewHandler: NSObject, UITableViewDelegate, UITableViewDataSource
 			senderColor = UIColor.orange
 		}
 		
-		cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
-		cell.textLabel?.text = message
-		cell.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
-		cell.detailTextLabel?.text = senderLabelText
-		cell.detailTextLabel?.textColor = senderColor
+		cell?.textLabel?.font = UIFont.preferredFont(forTextStyle: .title3)
+		cell?.textLabel?.text = message
+		cell?.detailTextLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+		cell?.detailTextLabel?.text = senderLabelText
+		cell?.detailTextLabel?.textColor = senderColor
 		
-		return cell
+		return cell!
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
