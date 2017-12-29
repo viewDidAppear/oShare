@@ -9,7 +9,7 @@ class PeerBrowserTableViewHandler: NSObject, UITableViewDelegate, UITableViewDat
 	weak var appDelegate: AppDelegate?
 	
 	// Keep track of the number of peers. Since this is strictly for data display, we don't want to access it outside of this handler.
-	private var foundPeers: [MCPeerID] = []
+	private(set) var foundPeers: [MCPeerID] = []
 	private let peerCellIdentifier: String = "PeerCell"
 	
 	// Some example status messages. Theoretically, a user could set this in their app preferences, to advertise their current status to their team. I shamelessly ripped this idea from WhatsApp, Slack and Skype.
