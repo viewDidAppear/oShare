@@ -8,8 +8,8 @@ class MultipeerConnectivityManager: NSObject {
 	var foundPeers: [MCPeerID] = []
 	var invitationHandler: ((Bool, MCSession) -> Void)?
 
-	private var connectivityBrowser: MCNearbyServiceBrowser
-	private var connectivityAdvertiser: MCNearbyServiceAdvertiser
+	private(set) var connectivityBrowser: MCNearbyServiceBrowser
+	private(set) var connectivityAdvertiser: MCNearbyServiceAdvertiser
 	private(set) var session: MCSession
 	
 	// MARK: - Initialization

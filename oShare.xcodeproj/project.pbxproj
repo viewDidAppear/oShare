@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0616D0121FF5D45100A72E15 /* XCTest+Eventually.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616D0111FF5D45100A72E15 /* XCTest+Eventually.swift */; };
 		0616D0141FF5D83700A72E15 /* ChatTableViewHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616D0131FF5D83700A72E15 /* ChatTableViewHandlerTests.swift */; };
+		0616D0161FF5E91B00A72E15 /* MultipeerConnectivityManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0616D0151FF5E91B00A72E15 /* MultipeerConnectivityManagerTests.swift */; };
 		063D1E341FEF33FF001A6DC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E331FEF33FF001A6DC4 /* AppDelegate.swift */; };
 		063D1E361FEF33FF001A6DC4 /* ChatSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063D1E351FEF33FF001A6DC4 /* ChatSetupViewController.swift */; };
 		063D1E391FEF33FF001A6DC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 063D1E371FEF33FF001A6DC4 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 /* Begin PBXFileReference section */
 		0616D0111FF5D45100A72E15 /* XCTest+Eventually.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Eventually.swift"; sourceTree = "<group>"; };
 		0616D0131FF5D83700A72E15 /* ChatTableViewHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewHandlerTests.swift; sourceTree = "<group>"; };
+		0616D0151FF5E91B00A72E15 /* MultipeerConnectivityManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerConnectivityManagerTests.swift; sourceTree = "<group>"; };
 		063D1E301FEF33FF001A6DC4 /* oShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = oShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		063D1E331FEF33FF001A6DC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		063D1E351FEF33FF001A6DC4 /* ChatSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSetupViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		063D1E471FEF33FF001A6DC4 /* oShareTests */ = {
 			isa = PBXGroup;
 			children = (
+				0616D0151FF5E91B00A72E15 /* MultipeerConnectivityManagerTests.swift */,
 				063D1E481FEF33FF001A6DC4 /* PeerBrowserTableViewHandlerTests.swift */,
 				0616D0131FF5D83700A72E15 /* ChatTableViewHandlerTests.swift */,
 				0616D0111FF5D45100A72E15 /* XCTest+Eventually.swift */,
@@ -312,6 +315,7 @@
 			files = (
 				063D1E491FEF33FF001A6DC4 /* PeerBrowserTableViewHandlerTests.swift in Sources */,
 				0616D0141FF5D83700A72E15 /* ChatTableViewHandlerTests.swift in Sources */,
+				0616D0161FF5E91B00A72E15 /* MultipeerConnectivityManagerTests.swift in Sources */,
 				0616D0121FF5D45100A72E15 /* XCTest+Eventually.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
